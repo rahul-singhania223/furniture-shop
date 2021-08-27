@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import MenuIcon from '@material-ui/icons/Menu';
 import { ChevronLeft, ChevronRight, Person, SearchRounded, ShoppingCart } from '@material-ui/icons';
@@ -200,7 +200,7 @@ function Homepage(props) {
 
                 <footer>
                     <FooterContainer>
-                        <h3>Designed and develped by <a href="#">Rahul Singhania</a ></h3>
+                        <h3>Designed and develped by <a href="https://www.upwork.com/freelancers/~01a13f4cd74e3429a3?viewMode=1">Rahul Singhania</a ></h3>
                     </FooterContainer>
                 </footer>
 
