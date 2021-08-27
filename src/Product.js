@@ -60,11 +60,10 @@ const Container = styled.div`
     }
 
     @media(max-width: 580px) {
-        max-width: 75%;
-        height: 320px;
+        max-width: 85%;
+        height: 380px;
         margin-bottom: 101px;
-        
-        transition: all 0.1s linear;
+       
     }
     
 `;

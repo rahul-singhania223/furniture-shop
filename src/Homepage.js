@@ -64,7 +64,7 @@ function Homepage(props) {
     const settings = {
         dots: false,
         infinite: true,
-        speed: 400,
+        speed: 500,
         slidesToShow: slides,
         slidesToScroll: window.innerWidth<1200? 1 : 2,
     }
@@ -404,7 +404,10 @@ const HeaderContainer = styled.div`
 
     div {
         display: flex;
-        gap: 20px;
+        
+        span {
+            margin-left: 20px;
+        }
     }
 
     h2 {

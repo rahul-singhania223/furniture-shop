@@ -59,9 +59,7 @@ body {
 @media(max-width: 768px) {
     .slick-current .product {
         box-shadow: 3px 3px 12px 3px #bbbb;
-        max-width: 85% !important;
-        height: 380px;
-        margin-bottom: 20px;
+       
     }
 }
 
