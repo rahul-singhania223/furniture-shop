@@ -64,7 +64,7 @@ const Container = styled.div`
         height: 320px;
         margin-bottom: 101px;
         
-        transition: all 0.3s ease;
+        transition: all 0.1s linear;
     }
     
 `;
@@ -95,7 +95,7 @@ const Ratings = styled.div`
 `;
 
 const Title = styled.div`
-    padding-bottom: 4px;
+    padding-bottom: 11px;
 `;
 
 const ActionContainer = styled.div`

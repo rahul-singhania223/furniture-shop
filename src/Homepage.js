@@ -64,7 +64,7 @@ function Homepage(props) {
     const settings = {
         dots: false,
         infinite: true,
-        speed: 500,
+        speed: 400,
         slidesToShow: slides,
         slidesToScroll: window.innerWidth<1200? 1 : 2,
     }
