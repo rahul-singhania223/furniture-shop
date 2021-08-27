@@ -4,6 +4,7 @@ import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 
+
 function Product(props) {
     return (
         <Container className="product">
@@ -21,7 +22,8 @@ function Product(props) {
                 </Ratings>
 
                 <Title>
-                    <h3>Modern white chair</h3>
+                    <h3>Modern white chair...                        
+                    </h3>
                 </Title>
                 <ActionContainer>
                     <h3><span>$</span>199</h3>
@@ -37,7 +39,7 @@ export default Product;
 
 const Container = styled.div`
     background: #fff;    
-    height: 340px;
+    height: 380px;
     min-width: 250px;
     max-width: 85%;
     margin-left: 20px;
@@ -58,10 +60,10 @@ const Container = styled.div`
     }
 
     @media(max-width: 580px) {
-        max-width: 75%;
-        height: 280px;
-        margin-bottom: 75px;
-        transition: all 0.6s ease;
+        max-width: 85%;
+        height: 380px;
+        margin-bottom: 101px;
+       
     }
     
 `;
@@ -76,7 +78,7 @@ const ImageContainer = styled.div`
     }
 
     @media(max-width: 580px) {
-        height: 190px;
+        height: 220px;
     }
 `;
 
@@ -91,7 +93,9 @@ const Ratings = styled.div`
         
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+    padding-bottom: 11px;
+`;
 
 const ActionContainer = styled.div`
     display: flex;
@@ -109,8 +113,8 @@ const ActionContainer = styled.div`
     }
 
     button {
-        width: 100px;
-        height: 40px;
+        width: 120px;
+        height: 43px;
         border-radius: 30px;
         border: none;
         background: #141313;
