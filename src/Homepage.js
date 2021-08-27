@@ -349,6 +349,10 @@ const TitleTextContainer = styled.div`
         h1 {
             font-size: 2.5rem;
         }
+
+        button {
+            margin-top: 30px;
+        }
     }
 `;
 
