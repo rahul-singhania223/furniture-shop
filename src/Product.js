@@ -61,9 +61,10 @@ const Container = styled.div`
 
     @media(max-width: 580px) {
         max-width: 75%;
-        height: 300px;
-        margin-bottom: 75px;
-        transition: all 0.6s ease;
+        height: 320px;
+        margin-bottom: 101px;
+        
+        transition: all 0.3s ease;
     }
     
 `;
@@ -78,7 +79,7 @@ const ImageContainer = styled.div`
     }
 
     @media(max-width: 580px) {
-        height: 190px;
+        height: 220px;
     }
 `;
 
@@ -93,7 +94,9 @@ const Ratings = styled.div`
         
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+    padding-bottom: 4px;
+`;
 
 const ActionContainer = styled.div`
     display: flex;
