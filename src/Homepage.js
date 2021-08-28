@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MenuIcon from '@material-ui/icons/Menu';
 import { ChevronLeft, ChevronRight, Person, SearchRounded, ShoppingCart } from '@material-ui/icons';
 import Slider from "react-slick";
-import Product from './Product';
+import Product from './HomeProduct';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import avatar from "./assets/avatar.jpg";
@@ -226,7 +226,7 @@ const TitleContainer = styled.div`
     padding: 0 4%;
 `;
 
-const NavigationBar = styled.div`
+const NavigationBar = styled.nav`
     max-width: 1500px;
     margin: 0 auto;
     padding: 20px 0;

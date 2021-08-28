@@ -1,100 +1,106 @@
+import Star from '@material-ui/icons/Star';
+import StarHalf from '@material-ui/icons/StarHalf'
 import React from 'react';
 import styled from "styled-components";
-import StarIcon from '@material-ui/icons/Star';
-import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 
 
 function Product(props) {
     return (
-        <Container className="product">
-            <ImageContainer id="product_img">
-                <img src="https://p.kindpng.com/picc/s/354-3542715_office-chair-hd-png-download.png" alt="" />
-            </ImageContainer>
+        <Container>
+
+            <ImgContainer>
+                <img src="https://p.kindpng.com/picc/s/354-3542715_office-chair-hd-png-download.png" alt="" />            
+            </ImgContainer>
 
             <InfoContainer>
                 <Ratings>
-                    <span><StarIcon /></span>
-                    <span><StarIcon /></span>
-                    <span><StarIcon /></span>
-                    <span><StarIcon /></span>
-                    <span><StarHalfIcon /></span>
+                    <span><Star /></span>
+                    <span><Star /></span>
+                    <span><Star /></span>
+                    <span><Star /></span>
+                    <span><StarHalf /></span>
                 </Ratings>
 
-                <Title>
-                    <h3>Modern white chair...                        
-                    </h3>
-                </Title>
-                <ActionContainer>
-                    <h3><span>$</span>199</h3>
-                    <button>Cart</button>
-                </ActionContainer>
-            </InfoContainer>            
+                <h3>Modern white chair...</h3>
+            </InfoContainer>
+
+            <ActionContainer>
+                <h3><span>$</span>199</h3>
+                <button>cart</button>
+            </ActionContainer>
+
         </Container>
     );
 }
 
 export default Product;
- 
 
 const Container = styled.div`
-    background: #fff;    
-    height: 380px;
-    min-width: 250px;
-    max-width: 85%;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
+    margin: 20px;
     padding: 15px;
+    background: #fff;
+    border-radius: 11px;
+    display: flex;
+    flex-direction: column;    
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    height: 412px;
     cursor: pointer;
-    
-    
-    :hover {
-        #product_img {
-            transform: scale(1.08);
-        }
 
+    :hover {
         box-shadow: 3px 3px 10px 3px #bbbb;
     }
 
-    @media(max-width: 580px) {
-        max-width: 85%;
-        height: 380px;
-        margin-bottom: 101px;
-       
+    @media(max-width: 768px) {
+        min-width: 210px;
+        margin: 10px;
+        height: 360px;
     }
-    
+
+    @media(max-width: 500px) {
+        min-width: 150px;
+        margin: 10px;
+        height: 330px;
+    }
+
+
+   
 `;
 
-const ImageContainer = styled.div`
-    height: 230px;
+const ImgContainer = styled.div`
+   display: flex;
+   justify-content: center;
+   height: 260px;
+   
+   img {
+       max-width: 100%;
+       max-height: 100%;
+       object-fit: contain;
+   }
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
+   @media(max-width: 768px) {
+       height: 220px;
+   }
 
-    @media(max-width: 580px) {
-        height: 220px;
-    }
+   @media(max-width: 500px) {
+       height: 180px;
+   }
 `;
 
 const InfoContainer = styled.div`
+    h3 {
+        padding-bottom: 8px;
+    }
     margin-top: auto;
 `;
 
 const Ratings = styled.div`
     svg {
         font-size: 1rem;
+        margin-bottom: -4px;
     }
-        
-`;
-
-const Title = styled.div`
-    padding-bottom: 11px;
 `;
 
 const ActionContainer = styled.div`
@@ -102,14 +108,12 @@ const ActionContainer = styled.div`
     justify-content: space-between;
 
     h3 {
-        span {
-            font-size: 0.9rem;
-            font-weight: 900;
-        }
+        margin-top: auto;
+        
+    }
 
-        font-weight: 600;
-        font-size: 1.3rem;
-        margin-top: auto;       
+    span {
+        font-size: 0.9rem;
     }
 
     button {
@@ -124,4 +128,3 @@ const ActionContainer = styled.div`
         box-shadow: 2px 2px 10px 2px #5b5b5b;
     }
 `;
-
