@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import Product from './HomeProduct';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from 'react-router-dom';
 // import avatar from "./assets/avatar.jpg";
 
 
@@ -79,13 +80,13 @@ function Homepage(props) {
                         <NavigationBar>
                             <span className="cart__icon"><ShoppingCart /></span>   
 
-                            <h2>furn.</h2>
+                            <Link to="/"><h2>furn.</h2></Link>
 
                             <ul className="nav__option">
-                                <li onClick={handleActiveNav}  className="active__nav">Home</li>
-                                <li onClick={handleActiveNav} >shop</li>
-                                <li onClick={handleActiveNav} >blog</li>
-                                <li onClick={handleActiveNav} >about</li>
+                                <Link to="/"><li onClick={handleActiveNav}  className="active__nav">Home</li></Link>
+                                <Link to="/shop"><li onClick={handleActiveNav} >shop</li></Link>
+                                <Link to="/blogs"><li onClick={handleActiveNav} >blog</li></Link>
+                                <Link to="/about"><li onClick={handleActiveNav} >about</li></Link>
                             </ul>
 
                             <ul className="personal__options" >

@@ -5,9 +5,9 @@ import styled from 'styled-components';
 function Footer(props) {
     return (
         <Container>
-            <h2>
+            <h3>
                 Desined and developed by <a href="https://www.upwork.com/freelancers/~01a13f4cd74e3429a3?viewMode=1">Rahul Singhania</a>
-            </h2>            
+            </h3>            
         </Container>
     );
 }
@@ -22,7 +22,7 @@ const Container = styled.div`
     background: #141313;
     color: #e5e7ef;
 
-    h2 {
+    h3 {
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -30,8 +30,9 @@ const Container = styled.div`
     }
 
     a {
-        font-size: 1.3rem;
+        
         color: #e5e7ef;
+        text-decoration: underline;
 
     }
 `;
