@@ -28,6 +28,9 @@ function Homepage(props) {
         slidesNum = 1;
     }
 
+    const [slides, setSlides] = useState(slidesNum);
+    const [openNav, setOpenNav] = useState(false);
+
     window.onresize = () => {
         
         if(window.innerWidth > 1140) {
@@ -49,8 +52,7 @@ function Homepage(props) {
     }
 
     
-    const [slides, setSlides] = useState(slidesNum);
-    const [openNav, setOpenNav] = useState(false);
+    
 
     // handle slides settings    
     const settings = {
