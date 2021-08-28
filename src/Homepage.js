@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import Product from './Product';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import avatar from "./assets/avatar.jpg";
+// import avatar from "./assets/avatar.jpg";
 
 
 
