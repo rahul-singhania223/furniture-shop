@@ -140,6 +140,7 @@ const ActionContainer = styled.div`
         button {
             width: 60px;
             height: 38px;
+            box-shadow: none;
 
             svg {
                 font-size: 1.1rem;
