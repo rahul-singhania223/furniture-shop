@@ -1,3 +1,4 @@
+import { ShoppingCart } from '@material-ui/icons';
 import Star from '@material-ui/icons/Star';
 import StarHalf from '@material-ui/icons/StarHalf'
 import React from 'react';
@@ -27,7 +28,7 @@ function Product(props) {
 
             <ActionContainer>
                 <h3><span>$</span>199</h3>
-                <button>cart</button>
+                <button>{window.innerWidth<510? <ShoppingCart /> : "Cart"}</button>
             </ActionContainer>
 
         </Container>
@@ -61,8 +62,8 @@ const Container = styled.div`
 
     @media(max-width: 500px) {
         min-width: 150px;
-        margin: 10px;
-        height: 330px;
+        margin: 20px 8px;
+        height: 260px;
     }
 
 
@@ -85,7 +86,7 @@ const ImgContainer = styled.div`
    }
 
    @media(max-width: 500px) {
-       height: 180px;
+       height: 140px;
    }
 `;
 
@@ -94,6 +95,10 @@ const InfoContainer = styled.div`
         padding-bottom: 8px;
     }
     margin-top: auto;
+
+    @media(max-width: 500px) {
+        font-size: 0.9rem;
+    }
 `;
 
 const Ratings = styled.div`
@@ -126,5 +131,17 @@ const ActionContainer = styled.div`
         font-weight: 700;
         cursor: pointer;
         box-shadow: 2px 2px 10px 2px #5b5b5b;
+    }
+
+    @media(max-width: 500px) {
+        
+        button {
+            width: 60px;
+            height: 38px;
+
+            svg {
+                font-size: 1.1rem;
+            }
+        }
     }
 `;

@@ -82,7 +82,7 @@ const BackBtn = styled.div`
 `;
 
 const MainContainer = styled.div`
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 30px;
     background: #ffff;
     border-radius: 20px;

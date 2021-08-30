@@ -158,8 +158,8 @@ const Section = styled.div`
         }
 
         img {
-            width: 320px !important;
-            height: 320px !important;
+            width: 300px !important;
+            height: 300px !important;
             object-fit: contain;
         }
 

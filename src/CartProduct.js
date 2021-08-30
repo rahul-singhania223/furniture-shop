@@ -10,7 +10,7 @@ function CartProduct(props) {
 
     let string = "Armen Living Jaguar Dining Chair in Green Fabric and Walnut Wood Finish";
 
-    const title = string.substring(0, 30);
+    const title = string.substring(0, 25);
 
     return (
         <Container>
@@ -73,7 +73,7 @@ const ImgContainer = styled.div`
     margin-right: 30px;
 
     @media(max-width: 500px) {
-        width: 90px;
+        width: 80px;
         margin-right: 18px;
     }
 `;

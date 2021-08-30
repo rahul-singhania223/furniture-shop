@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import MenuIcon from '@material-ui/icons/Menu';
 import { ChevronLeft, ChevronRight, Person, SearchRounded, ShoppingCart } from '@material-ui/icons';
@@ -30,6 +30,7 @@ function Homepage(props) {
 
     const [slides, setSlides] = useState(slidesNum);
     const [openNav, setOpenNav] = useState(false);
+    const [path, setPath] = useState("");
 
     window.onresize = () => {
         
@@ -50,6 +51,10 @@ function Homepage(props) {
             setSlides(1);
         }
     }
+
+    useEffect(() => {
+        setPath(window.location.pathname)
+    }, [])
 
     
     
@@ -93,8 +98,8 @@ function Homepage(props) {
 
                             <ul className="personal__options" >
                                 <li><SearchRounded /></li>
-                                <li><ShoppingCart /></li>
-                                <li><Person /></li>
+                                <Link to="/cart"><li><ShoppingCart /></li></Link>
+                                <Link to="/user/rahul"><li><Person /></li></Link>
                             </ul>
 
                             <MenuIconContianer onClick={() => setOpenNav(true)}><MenuIcon /></MenuIconContianer>
@@ -115,10 +120,10 @@ function Homepage(props) {
                                     <Link to="/user/rahul"><h3>Rahul Singhania</h3></Link>
                                 </UserContainer>
                                 <ul>
-                                    <Link to="/"><li className={""}>Home</li></Link>
-                                    <Link to="/shop"><li >shop</li></Link>
-                                    <Link to="/about"><li >about</li></Link>
-                                    <Link to="/blogs"><li >blogs</li></Link>
+                                    <Link to="/"><li className={path==="/"? "active__nav" : null} >Home</li></Link>
+                                    <Link to="/shop"><li className={path==="/shop"? "active__nav" : null} >shop</li></Link>
+                                    <Link to="/about"><li className={path==="/about"? "active__nav" : null} >about</li></Link>
+                                    <Link to="/blogs"><li className={path==="/blogs"? "active__nav" : null} >blogs</li></Link>
                                 </ul>
                             </div>
                         </MenuModal>
@@ -271,7 +276,7 @@ const NavigationBar = styled.nav`
         }
     }
 
-    @media(max-width: 500px) {
+    @media(max-width: 7680px) {
         flex-direction: row-reverse;
         
         .cart__icon {

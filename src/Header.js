@@ -12,6 +12,7 @@ function Header(props) {
     // const [openNav, setOpenNav] = useState(false);
 
     const [path, setPath] = useState("");
+    const [openModal, setOpenModal]  = useState(false)
 
     const handleActiveNav = (e) => {
         // document.getElementsByClassName("active__nav")[0].classList.remove("active__nav");
@@ -28,7 +29,7 @@ function Header(props) {
         <Container style={{backgroundImage: `url(${background})`}}>
             <nav>
                 
-                <IconContainer><Menu /></IconContainer>
+                <IconContainer onClick={() => setOpenModal(true)}><Menu /></IconContainer>
 
                 <Link to="/"><h2>furn.</h2></Link>
 
@@ -41,12 +42,28 @@ function Header(props) {
 
                 <ul className="personal__options">
                     <li><SearchRounded /></li>
-                    <li><ShoppingCart /></li>
-                    <li><Person /></li>
+                    <Link to="/cart"><li><ShoppingCart /></li></Link>
+                    <Link to="/user/rahul"><li><Person /></li></Link>
                 </ul>
 
                 <IconContainer><ShoppingCart /></IconContainer>
-            </nav>            
+            </nav>
+
+            <MenuModal onClick={() => setOpenModal(false)} style={{display: openModal? "grid" : "none"}}>
+                <div>
+                    <UserContainer>
+                        <Avatar />
+                        <h4>Rahul Singhania</h4>
+                    </UserContainer>
+
+                    <ul>
+                        <Link to="/"><li className={path==="/"? "active__nav" : null}>Home</li></Link>
+                        <Link to="/shop"><li className={path==="/shop"? "active__nav" : null}>Shop</li></Link>
+                        <Link to="/blogs"><li className={path==="/blogs"? "active__nav" : null}>Blogs</li></Link>
+                        <Link to="/about"><li className={path==="/about"? "active__nav" : null}>About</li></Link>
+                    </ul>
+                </div>
+            </MenuModal>            
         </Container>
     );
 }
@@ -114,4 +131,57 @@ const IconContainer = styled.div`
     @media(max-width: 900px) {
         display: block;
     }
+`;
+
+const MenuModal = styled.div`
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.4);
+
+    div {
+        background: #fff;
+        border-radius: 7px;
+        color: #141313;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0;        
+    }
+
+    li {
+        margin: 11px 0;
+        padding-bottom: 4px;
+    }
+
+    
+    
+`;
+
+const UserContainer = styled.div`    
+    h4 {
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 10px 0;
+    }
+    border-bottom: solid 1px lightgray;
+`;
+
+const Avatar = styled.div`
+    width: 55px !important;
+    height: 55px;
+    background: #ddd !important;
+    border-radius: 50% !important;
 `;

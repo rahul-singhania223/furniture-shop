@@ -82,8 +82,7 @@ const FilterContainer = styled.div`
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    padding: 30px 4%;
-    
+    padding: 30px 4%;    
   
 
 `;
@@ -102,7 +101,7 @@ const FilterOption = styled.div`
 const ProductsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin: 100px 0;
+    margin: 20px 0 100px 0;
     
 
     @media(max-width: 1044px) {

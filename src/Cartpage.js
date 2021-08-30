@@ -74,7 +74,7 @@ const Container = styled.div`
     padding: 60px 4%;
 
     @media(max-width: 1024px) {
-        padding: 60px 2%;
+        padding: 40px 2%;
     }
 `;
 
@@ -93,7 +93,7 @@ const BackBtn = styled.div`
 `;
 
 const MainContainer = styled.div`
-    margin-top: 50px;    
+    margin-top: 20px;    
     display: flex;
 
     @media(max-width: 768px) {
@@ -123,7 +123,7 @@ const CartContainer = styled.div`
     flex: 1;
     padding: 15px;
     
-    @media(max-width: 500px) {
+    @media(max-width: 768px) {
         width: 100%;
     }
 `;
