@@ -85,7 +85,7 @@ function Homepage(props) {
                 <header>
                     <TitleContainer style={{backgroundImage: window.innerWidth<768? `url(${backgrounds[1]})` : `url(${backgrounds[0]})`}} > 
                         <NavigationBar>
-                            <Link to="/cart"><span className="cart__icon"><ShoppingCart /></span></Link>   
+                            <span className="cart__icon"><Link to="/cart"><ShoppingCart /></Link> </span>  
 
                             <Link to="/"><h2>furn.</h2></Link>
 
@@ -276,7 +276,7 @@ const NavigationBar = styled.nav`
         }
     }
 
-    @media(max-width: 7680px) {
+    @media(max-width: 1024px) {
         flex-direction: row-reverse;
         
         .cart__icon {
