@@ -10,6 +10,7 @@
 
 body {
     background: #e5e7ef;
+    
 }
 
 a {
@@ -95,7 +96,7 @@ a {
     #about__section__2 {
         flex-direction: column-reverse;
         margin-top: -80px;
-
+        
         
     }
 }
