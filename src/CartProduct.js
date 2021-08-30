@@ -7,6 +7,11 @@ import RemoveIcon from '@material-ui/icons/Remove';
 
 
 function CartProduct(props) {
+
+    let string = "Armen Living Jaguar Dining Chair in Green Fabric and Walnut Wood Finish";
+
+    const title = string.substring(0, 30);
+
     return (
         <Container>
             <ImgContainer>
@@ -21,7 +26,7 @@ function CartProduct(props) {
                     <span><Star /></span>
                     <span><StarHalf /></span>
                 </Ratings>
-                <Title>Armen Living Jaguar Dining Chair in Green Fabric and Walnut Wood Finish</Title>
+                <Title>{window.innerWidth<510? title : string}...</Title>
                 <QtyControl>
                     <span><AddIcon /></span>
                     <p>2</p>
@@ -49,6 +54,7 @@ const Container = styled.div`
     @media(max-width: 500px) {
         margin: 10px 0;
         padding-bottom: 1px;
+        
     }
 
 `;
@@ -67,7 +73,7 @@ const ImgContainer = styled.div`
     margin-right: 30px;
 
     @media(max-width: 500px) {
-        width: 80px;
+        width: 90px;
         margin-right: 18px;
     }
 `;

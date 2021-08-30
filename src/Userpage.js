@@ -156,6 +156,7 @@ const InfoHeader = styled.div`
         span {
             padding: 0 4px;
             font-size: 1rem;
+            padding-top: 9px;
         }
     }
 `;

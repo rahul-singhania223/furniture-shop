@@ -5,6 +5,11 @@ import styled from 'styled-components';
 
 
 function InfoProduct(props) {
+
+    let string = "Armen Living Jaguar Dining Chair in Green Fabric and Walnut Wood Finish";
+
+    const title = string.substring(0, 30);
+
     return (
         <Container>
             <ImgContainer>
@@ -20,7 +25,7 @@ function InfoProduct(props) {
                     <span><StarHalf /></span>
                 </Ratings>
 
-                <Title>Armen Living Jaguar Dining Chair in Green Fabric and Walnut Wood Finish</Title>
+                <Title>{window.innerWidth<500? title : string}...</Title>
                 <Price><span>$</span>199</Price>
             </InfoContainer>
 
@@ -42,6 +47,7 @@ const Container = styled.div`
     padding: 15px;
     border-radius: 11px;
     cursor: pointer;
+    width: 100%;
     
 
     :hover {

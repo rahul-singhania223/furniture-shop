@@ -122,6 +122,10 @@ const CartContainer = styled.div`
     border-radius: 11px;
     flex: 1;
     padding: 15px;
+    
+    @media(max-width: 500px) {
+        width: 100%;
+    }
 `;
 
 const CartProductContainer = styled.div`
