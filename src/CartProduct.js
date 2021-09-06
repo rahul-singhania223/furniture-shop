@@ -1,21 +1,84 @@
-import { Star, StarHalf } from '@material-ui/icons';
-import React from 'react';
+import { Delete, Star, StarHalf } from '@material-ui/icons';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import axios from 'axios';
+import { useStateValue } from './Stateprovider';
 
 
 
-function CartProduct(props) {
+function CartProduct({ product, setCheckout }) {
 
-    let string = "Armen Living Jaguar Dining Chair in Green Fabric and Walnut Wood Finish";
+    const [{cart}, dispatch] = useStateValue();    
 
-    const title = string.substring(0, 25);
+    const [qty, setQty] = useState(product.qty);
+    const userId = localStorage.getItem('userId');
 
+    let string = product? product.data.title : null;
+
+    const mobileTitle = string.substring(0, 25);
+    const desktopTitle = string.substring(0, 60);
+
+    const updateCart = (type) => {
+        
+        // Update qty value inside stateProvider
+
+        dispatch({
+            type: 'UPDATE_QTY',
+            id: product.id,
+            qty: type==="increase"? qty+1 : qty-1
+        })
+       
+        // Update qty value inside database
+
+        const credentials = {
+            userId: userId,
+            id: product.id,            
+            qty: type==="increase"? qty+1 : qty-1,
+            data: product.data
+        }
+        
+        axios.post(`/api/update/qty`, credentials)
+            .then(res => console.log(res.data))
+            .catch(e => console.log(e))
+
+    }
+
+    // Remove Item from the cart
+    const removeItemFromCart = () => {
+
+        // Remove item from the stateprovider cart
+
+        dispatch({
+            type: 'REMOVE_ITEM_FROM_CART',
+            id: product.id
+        })
+
+        // Remove item from the database cart
+
+        const credentials = {
+            userId : userId,
+            productId : product.id
+        }
+
+        axios.post('/api/cart/remove', credentials)
+            .then(res => console.log(res.data))
+            .catch(e => console.log(e))
+
+    }
+
+    // Setting checkout informations
+    
+    setCheckout(cart);
+
+    
+    
+   
     return (
         <Container>
             <ImgContainer>
-                <img src="https://p.kindpng.com/picc/s/354-3542715_office-chair-hd-png-download.png" alt="" />
+                <img src={product? product.data.images[0] : null} alt="" />
             </ImgContainer>
 
             <InfoContainer>
@@ -26,16 +89,18 @@ function CartProduct(props) {
                     <span><Star /></span>
                     <span><StarHalf /></span>
                 </Ratings>
-                <Title>{window.innerWidth<510? title : string}...</Title>
+                <Title>{window.innerWidth<510? mobileTitle : desktopTitle}...</Title>
                 <QtyControl>
-                    <span><AddIcon /></span>
-                    <p>2</p>
-                    <span><RemoveIcon /></span>
+                    <span onClick={() => {setQty(qty+1); updateCart("increase")}} ><AddIcon /></span>
+                    <p>{qty}</p>
+                    <span onClick={() => { if(qty>1) {setQty(qty-1); updateCart("decrease")}} } ><RemoveIcon /></span>
                 </QtyControl>    
             </InfoContainer>
 
             <PriceContainer>
-                <h3><span>$</span>199</h3>
+                <h3><span>$</span>{product.data.price}</h3>
+
+                <span onClick={removeItemFromCart} className='delete_icon'><Delete /></span>
             </PriceContainer>            
         </Container>
     );
@@ -163,10 +228,20 @@ const PriceContainer = styled.div`
     margin-left: 40px;
     font-size: 1.3rem;
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    
 
     span {
         font-size: 1rem;
         font-weight: 900;
+    }
+
+    .delete_icon {
+        color: #5b5b5b;
+        margin-top: auto;
+        margin-left: auto;
+        cursor: pointer;
     }
 
     @media(max-width: 500px) {

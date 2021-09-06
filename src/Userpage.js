@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import InfoProduct from './InfoProduct';
 import "./Userpage.css";
+import axios from 'axios';
 
 
 function Userpage(props) {
+
+    const [userData, setUserData] = useState({});
+    const [orders, setOrders] = useState([]);
+    const [returns, setReturns] = useState([]);
+    const userId  = localStorage.getItem('userId');
+    const [infoAbout, setInfoAbout] = useState("orders");
 
 
     const handleActive = (e) => {
         document.getElementsByClassName("active__info")[0].classList.remove("active__info");
         e.target.classList.add("active__info");
+        setInfoAbout(e.target.innerHTML)
     }
+
+   
+
+    useEffect(() => {
+        
+        axios.get(`/api/user/${userId}`)
+            .then(res => {
+                
+                setUserData(res.data.user);
+                setOrders(res.data.orders);
+                setReturns(res.data.returns);           
+
+            })
+            .catch(e => console.log(e))
+
+
+    }, [])
+
 
    
     
@@ -23,22 +49,35 @@ function Userpage(props) {
             <MainContainer  >
                 <UserContainer>
                     <Avatar />
-                    <h4>Rahul Singhania</h4>
-                    <p>rahulsinghania406@gmail.com</p>
+                    <h4>{userData? userData.name : null}</h4>
+                    <p>{userData? userData.email : null}</p>
                 </UserContainer>
 
                 <InfoContainer>
                     <InfoHeader>
-                        <span onClick={handleActive} className="active__info">Orders</span>
-                        <span onClick={handleActive}>Returns</span>
-                        <span onClick={handleActive}>Wishlist</span>
+                        <span onClick={handleActive} className="active__info">orders</span>
+                        <span onClick={handleActive}>returns</span>
+                        <span onClick={handleActive}>wishlist</span>
                     </InfoHeader>
 
                     <InfoContent>
-                        <InfoProduct />
-                        <InfoProduct />
-                        <InfoProduct />
-                        <InfoProduct />
+
+                        {  infoAbout==='orders'? 
+                            
+                            orders.map((item) => (
+                                <InfoProduct />
+                            ))
+
+                            :
+
+                            returns.map((item) => (
+                                <InfoProduct />
+                            ))
+
+                            
+                           
+                        }                        
+                       
                     </InfoContent>
                 </InfoContainer>
             </MainContainer>
@@ -144,6 +183,7 @@ const InfoHeader = styled.div`
         color: #5e5a5b;
         padding-top: 4px;
         cursor: pointer;
+        text-transform: capitalize;
         
     }
 

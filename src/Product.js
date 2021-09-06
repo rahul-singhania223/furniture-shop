@@ -1,17 +1,46 @@
 import { ShoppingCart } from '@material-ui/icons';
 import Star from '@material-ui/icons/Star';
 import StarHalf from '@material-ui/icons/StarHalf'
+import axios from 'axios';
 import React from 'react';
 import styled from "styled-components";
 
 
 
-function Product(props) {
+
+function Product({ id, images, title, ratings, price }) {
+
+    
+    const addToCart = () => {
+
+        const credentials = {
+            userId: localStorage.getItem('userId'),
+            qty: 1,
+            id: id,
+            data: {                
+                images: images,
+                title: title,
+                ratings: ratings,
+                price: price
+            }
+        }
+
+
+        axios.post('/api/cart/add', credentials)
+            .then(res => console.log(res.data))
+            .catch(e => console.log(e))
+        
+    }
+
+
+
+    
+    
     return (
         <Container>
 
             <ImgContainer>
-                <img src="https://p.kindpng.com/picc/s/354-3542715_office-chair-hd-png-download.png" alt="" />            
+                <img src={images? images[0] : null} alt="" />            
             </ImgContainer>
 
             <InfoContainer>
@@ -23,12 +52,12 @@ function Product(props) {
                     <span><StarHalf /></span>
                 </Ratings>
 
-                <h3>Modern white chair...</h3>
+                <h3>{title? title.substring(0, 18) : null}...</h3>
             </InfoContainer>
 
             <ActionContainer>
                 <h3><span>$</span>199</h3>
-                <button>{window.innerWidth<510? <ShoppingCart /> : "Cart"}</button>
+                <button onClick={addToCart}>{window.innerWidth<510? <ShoppingCart /> : "Cart"}</button>
             </ActionContainer>
 
         </Container>
@@ -61,11 +90,12 @@ const Container = styled.div`
     }
 
     @media(max-width: 500px) {
-        min-width: 150px;
+        min-width: 230px;
         margin: 20px 8px;
-        height: 290px;
-        padding: 6px;
-        padding-bottom: 11px;
+        height: 360px;
+        padding: 15px;
+        padding-bottom: 15px;
+        border-radius: 7px;
     }
 
 
@@ -88,7 +118,7 @@ const ImgContainer = styled.div`
    }
 
    @media(max-width: 500px) {
-       height: 140px;
+       height: 230px;
    }
 `;
 

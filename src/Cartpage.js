@@ -1,66 +1,120 @@
 import { ArrowUpward } from '@material-ui/icons';
-import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CartProduct from './CartProduct';
+import Header from './Header';
+import { useStateValue } from './Stateprovider';
 
 
 
 function Cartpage(props) {
+
+   const [ { cart } ] = useStateValue();
+
+   const [items, setItems] = useState(0);
+   const [subtotal, setSubtotal] = useState(0);
+   const [shipping, setShipping] = useState(40);
+   const [discount, setDiscount] = useState(60);
+   const [total, setTotal] = useState(0);
+
+
+   
+   
+   const setCheckout = (cart) => {
+
+        let totalItems = 0;
+        let newSubtotal = 0;
+
+
+        cart.map(function(item) {
+            totalItems = totalItems + item.qty;
+            newSubtotal = newSubtotal + (item.data.price * item.qty);
+
+            return (
+                null
+            )
+        })
+
+
+        setItems(totalItems);
+        setSubtotal(Math.round(newSubtotal))
+        setTotal(Math.round(newSubtotal + shipping - discount))
+        setShipping(shipping);
+        setDiscount(discount)
+   }
+   
+   
+   
+
     return (
         <Container>
-            <BackBtn onClick={() => window.history.back()}><span><ArrowRightAlt /></span></BackBtn>
             
-            <MainContainer>
-                <CartContainer>
-                    <HeaderContainer><h1>Shopping cart</h1></HeaderContainer>
+            <header>
+                <Header />
+            </header>
 
-                    <CartProductContainer>
-                        <CartProduct />
-                        <CartProduct />
-                        <CartProduct />
+            <main>
+                
+                <MainContainer>
+                    <CartContainer>
+                        <HeaderContainer><h1>Shopping cart</h1></HeaderContainer>
 
-                    </CartProductContainer>
+                        <CartProductContainer>
+                            
+                            {   cart.length>0? 
+                                    cart.map((item) => (
+                                        <CartProduct setCheckout={setCheckout} key={item.id} product={item} />
+                                    ))
+                                :
 
-                    
-                </CartContainer>
+                                <EmptyMsg>
+                                    <h3>Your shopping cart is empty. <span>Please add some items.</span></h3>
+                                </EmptyMsg>
+                            }
 
-                <CheckoutArea>
-                    <CheckoutHeader>
-                        <h2>Checkout</h2>
-                        <span><ArrowUpward /></span>
-                        </CheckoutHeader>
-                    
+                        </CartProductContainer>
 
-                    <div>
-                        <h3>Items:</h3>
-                        <span>3</span>
-                    </div>
+                        
+                    </CartContainer>
 
-                    <div>
-                        <h3>Subtotal:</h3>
-                        <span>$597</span>
-                    </div>
+                    <CheckoutArea>
+                        <CheckoutHeader>
+                            <h2>Checkout</h2>
+                            <span><ArrowUpward /></span>
+                            </CheckoutHeader>
+                        
 
-                    <div>
-                        <h3>Shipping:</h3>
-                        <span>$7</span>
-                    </div>
+                        <div>
+                            <h3>Items:</h3>
+                            <span>{ items }</span>
+                        </div>
 
-                    <div>
-                        <h3>Discount:</h3>
-                        <span>-$19</span>
-                    </div>
+                        <div>
+                            <h3>Subtotal:</h3>
+                            <span>${ subtotal }</span>
+                        </div>
 
-                    <TotalContainer>
-                        <Total>Total:</Total>
-                        <TotalAmount>$571</TotalAmount>
-                    </TotalContainer>
+                        <div>
+                            <h3>Shipping:</h3>
+                            <span>${ shipping }</span>
+                        </div>
 
-                    <CheckOutBtn>Checkout</CheckOutBtn>    
-                    
-                </CheckoutArea>
-            </MainContainer>
+                        <div>
+                            <h3>Discount:</h3>
+                            <span>-${ discount }</span>
+                        </div>
+
+                        <TotalContainer>
+                            <Total>Total:</Total>
+                            <TotalAmount>${ total }</TotalAmount>
+                        </TotalContainer>
+
+                        <CheckOutBtn>Checkout</CheckOutBtn>    
+                        
+                    </CheckoutArea>
+                </MainContainer>
+            </main>
+
         </Container>
     );
 }
@@ -69,28 +123,24 @@ export default Cartpage;
 
 
 const Container = styled.div`
-    max-width: 1500px;
     margin: 0 auto;
-    padding: 60px 4%;
+    
 
     @media(max-width: 1024px) {
-        padding: 40px 2%;
+
+        main {
+            padding: 40px 2%;
+        }
+        
+    }
+
+    main {
+        max-width: 1500px;
+        padding: 60px 4%;
+
     }
 `;
 
-const BackBtn = styled.div`
-    svg {
-        transform: rotate(-180deg) scaleX(1.8);
-    }
-
-    width: 120px;
-    height: 40px;
-    background: #fff;
-    display: grid;
-    place-items: center;
-    border-radius: 30px;
-    cursor: pointer;
-`;
 
 const MainContainer = styled.div`
     margin-top: 20px;    
@@ -122,6 +172,7 @@ const CartContainer = styled.div`
     border-radius: 11px;
     flex: 1;
     padding: 15px;
+    height: fit-content;
     
     @media(max-width: 768px) {
         width: 100%;
@@ -240,6 +291,37 @@ const CheckOutBtn = styled.button`
     border-radius: 20px;
     cursor: pointer;
     box-shadow: 2px 2px 10px 2px #5b5b5b;
+    
+`;
 
+const EmptyMsg = styled.div`
+    width: 100%;
+    height: 300px;
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    color: #5b5b5b;
+
+    h3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.6rem;
+    }
+
+    span {
+        font-size: 1.3rem;
+        padding-top: 6px;
+    }
+
+    @media(max-width: 768px) {
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        span {
+            font-size: 1.1rem;
+        }
+    }
     
 `;

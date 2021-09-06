@@ -7,6 +7,7 @@ import Blogpage from './Blogpage';
 import Aboutpage from './Aboutpage';
 import Userpage from './Userpage';
 import Cartpage from './Cartpage';
+import Authpage from './Authpage';
 
 
 function App(props) {
@@ -14,6 +15,7 @@ function App(props) {
         <Router>        
             <Container>
                 <Switch>
+                    <Route path="/auth"><Authpage /></Route>
                     <Route path="/cart"><Cartpage /></Route>
                     <Route path="/user/:userId"><Userpage /></Route>
                     <Route path="/about"><Aboutpage /></Route>

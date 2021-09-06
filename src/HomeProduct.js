@@ -2,14 +2,37 @@ import React from 'react';
 import styled from "styled-components";
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
-
+import axios from 'axios';
 
 
 function Product(props) {
+
+    const addToCart = () => {
+
+        const credentials = {
+            userId: localStorage.getItem('userId'),
+            qty: 1,
+            id: props.id,
+            data: {                
+                images: props.images,
+                title: props.title,
+                ratings: props.ratings,
+                price: props.price
+            }
+        }
+
+
+        axios.post('/api/cart/add', credentials)
+            .then(res => console.log(res.data))
+            .catch(e => console.log(e))
+        
+    }
+
+    
     return (
         <Container className="product">
             <ImageContainer id="product_img">
-                <img src="https://p.kindpng.com/picc/s/354-3542715_office-chair-hd-png-download.png" alt="" />
+                <img src={props.images? props.images[0] : null} alt="" />
             </ImageContainer>
 
             <InfoContainer>
@@ -22,12 +45,13 @@ function Product(props) {
                 </Ratings>
 
                 <Title>
-                    <h3>Modern white chair...                        
+                    <h3>
+                        {props.title? props.title.substring(0, 18) : null}...                        
                     </h3>
                 </Title>
                 <ActionContainer>
-                    <h3><span>$</span>199</h3>
-                    <button>Cart</button>
+                    <h3><span>$</span>{props.price? props.price : null}</h3>
+                    <button onClick={addToCart}>Cart</button>
                 </ActionContainer>
             </InfoContainer>            
         </Container>

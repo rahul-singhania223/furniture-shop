@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {  Person, SearchRounded, ShoppingCart } from '@material-ui/icons';
 import Menu from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useStateValue } from './Stateprovider';
 
 
 
@@ -12,7 +14,10 @@ function Header(props) {
     // const [openNav, setOpenNav] = useState(false);
 
     const [path, setPath] = useState("");
-    const [openModal, setOpenModal]  = useState(false)
+    const [openModal, setOpenModal]  = useState(false);
+    const userId = localStorage.getItem('userId');
+    const [, dispatch] = useStateValue();
+
 
     const handleActiveNav = (e) => {
         // document.getElementsByClassName("active__nav")[0].classList.remove("active__nav");
@@ -22,8 +27,27 @@ function Header(props) {
     const background = "https://mindsparklemag.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2017/04/peldxrvztmzlxtrxep4k-1240x635.jpg.webp";
 
     useEffect(() => {
-        setPath(window.location.pathname)
+        setPath(window.location.pathname);
+
+
+        // GET CART PRODUCT FROM THE SERVER 
+
+        axios.get(`/api/user/${userId}`)
+            .then(res => {
+
+                dispatch({
+                    type: 'GOT_PRODUCTS',
+                    item: res.data.cart
+                })        
+
+            }).catch(e => console.log(e))
+
     }, [])
+
+    
+    
+
+
 
     return (
         <Container style={{backgroundImage: `url(${background})`}}>
@@ -42,17 +66,18 @@ function Header(props) {
 
                 <ul className="personal__options">
                     <li><SearchRounded /></li>
-                    <Link to="/cart"><li><ShoppingCart /></li></Link>
-                    <Link to="/user/rahul"><li><Person /></li></Link>
+                    <Link to="/cart"><li className={path==='/cart'? "active_personal_nav" : null} ><ShoppingCart /></li></Link>
+                    <Link to={userId? `/user/${userId}` : "/auth"}><li className={path==='/user'? "active_personal_nav" : null} ><Person /></li></Link>
                 </ul>
 
-                <IconContainer><ShoppingCart /></IconContainer>
+                <Link id='mobile_cart_icon' to='/cart'><IconContainer><ShoppingCart /></IconContainer></Link>
             </nav>
 
             <MenuModal onClick={() => setOpenModal(false)} style={{display: openModal? "grid" : "none"}}>
                 <div>
+                    
                     <UserContainer>
-                        <Avatar />
+                        <Link to={userId? `/user/${userId}` : '/auth'} ><Avatar /></Link>
                         <h4>Rahul Singhania</h4>
                     </UserContainer>
 
@@ -73,7 +98,7 @@ export default Header;
 
 const Container = styled.div`
     color: #e5e7ef;
-    height: 30vh;
+    height: 100px;
     background-size: cover;
     background-position: top;
     padding: 20px 4%;

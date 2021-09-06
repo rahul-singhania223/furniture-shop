@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 import Footer from './Footer';
 import Header from './Header';
@@ -6,23 +7,35 @@ import Product from "./Product";
 
 
 
-
 function ShopPage(props) {
 
+        
+    const [products, setProducts] = useState([]);
+    const [filter, setFilter] = useState(localStorage.getItem('filter'))
+    const [filterOptions, setFilterOptions] = useState(['all', 'chairs', 'sofas', 'beds', 'office chairs', 'desks', 'tables', 'study tables', 'gaming chairs'])
+
     const handleActiveProductFilter = (e) => {
-        const classes = Array.from(e.target.classList);
-        const classIndex = classes.findIndex((className) => className === "active__product__filter");
-
-        // If already selected
-        if(classIndex>=0) {             
-            e.target.classList.remove("active__product__filter")
-        } else {
-            // If not selected
-            e.target.classList.add("active__product__filter");
-        }
-
-        console.log(classIndex);
+        document.getElementsByClassName("active__product__filter")[0].classList.remove("active__product__filter");
+        e.target.classList.add("active__product__filter");
+        localStorage.setItem("filter", e.target.innerHTML);
+        setFilter(e.target.innerHTML);
     }
+
+    useEffect(() => {
+        fetch("/api/products")
+        .then(res => res.json())
+        .then(res => setProducts(res));
+
+        document.getElementById(filter).classList.add('active__product__filter');
+        setFilterOptions(filterOptions);
+    }, [])
+
+
+    window.onload = () => {
+        document.getElementById(filter).classList.add("active__product__filter")
+    }
+
+    localStorage.setItem("filter", filter);
 
     return (
         <Container>
@@ -32,29 +45,36 @@ function ShopPage(props) {
 
             <main>
                 <FilterContainer className="filter__container">
-                    <FilterOption onClick={handleActiveProductFilter}  className="active__product__filter">chairs</FilterOption>
-                    <FilterOption onClick={handleActiveProductFilter} >sofas</FilterOption>
-                    <FilterOption onClick={handleActiveProductFilter} >beds</FilterOption>
-                    <FilterOption onClick={handleActiveProductFilter} >office chairs</FilterOption>
-                    <FilterOption onClick={handleActiveProductFilter} >desks</FilterOption>
-                    <FilterOption onClick={handleActiveProductFilter} >tables</FilterOption>                    
-                    <FilterOption onClick={handleActiveProductFilter} >study tables</FilterOption>
-                    <FilterOption onClick={handleActiveProductFilter} >gaming chairs</FilterOption>
+                    
+                    {
+                        filterOptions.map((option) => (
+
+                            <FilterOption onClick={handleActiveProductFilter} id={option} >{option}</FilterOption>
+                        ))
+                    }
+                    
                 </FilterContainer>
 
                 <ProductsContainer>
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
-                    <Product />
+                    {
+                        products.map((product) => {
+                            if(filter==="all") {
+                                return (
+                                    <Product key={product._id} id={product._id} images={product.images} title={product.title} ratings={product.ratings} price={product.price} />
+                                )
+                            } else {
+                                let filterIndex = product.keywords.findIndex((keyword) => keyword === filter.substring(0, filter.length-1));
+
+                                if(filterIndex>=0) {
+                                    return (
+                                        <Product key={product._id} id={product._id} images={product.images} title={product.title} ratings={product.ratings} price={product.price} />
+                                    )
+                                }else {
+                                    return null
+                                }
+                            }
+                        })
+                    }
                 </ProductsContainer>
             </main>
 
@@ -82,7 +102,7 @@ const FilterContainer = styled.div`
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    padding: 30px 4%;    
+    padding: 40px 4% 10px 4%;    
   
 
 `;
@@ -96,12 +116,18 @@ const FilterOption = styled.div`
     margin-right: 40px;
     cursor: pointer;
     white-space: nowrap ;
+
+    @media(max-width: 500px) {
+        padding: 7px 18px;
+        font-size: 0.8rem;
+    }
 `;
 
 const ProductsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin: 20px 0 100px 0;
+    margin: 0 0 100px 0;
+    min-height: 60vh;
     
 
     @media(max-width: 1044px) {
