@@ -105,7 +105,8 @@ function Homepage(props) {
     useEffect(() => {
         fetch("/api/products")
         .then(res => res.json())
-        .then(res => setProducts(res));
+        .then(res => setProducts(res))
+        .catch(e => console.log(e))
     }, [])
       
    
