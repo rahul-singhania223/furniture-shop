@@ -58,6 +58,9 @@ function Homepage(props) {
 
     useEffect(() => {
         setPath(window.location.pathname);
+        fetch('/api')
+            .then(res => console.log(res)
+            .catch(e => console.log(e))
         
     }, [])
 
@@ -103,7 +106,8 @@ function Homepage(props) {
 
     // Getting products
     useEffect(() => {
-        fetch("/api/products")        
+        fetch("/api/products")
+        .then(res => res.json())
         .then(res => setProducts(res))
         .catch(e => console.log(e))
     }, [])
