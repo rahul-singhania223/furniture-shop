@@ -59,9 +59,6 @@ function Homepage(props) {
     useEffect(() => {
         setPath(window.location.pathname);
         
-        fetch('/api')            
-            .then(res => console.log(res))
-            .catch(e => console.log(e));
     }, [])
 
     
