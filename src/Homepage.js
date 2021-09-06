@@ -57,7 +57,12 @@ function Homepage(props) {
     }
 
     useEffect(() => {
-        setPath(window.location.pathname)
+        setPath(window.location.pathname);
+        
+        fetch('/api')
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(e => console.log(e));
     }, [])
 
     
